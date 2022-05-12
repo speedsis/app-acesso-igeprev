@@ -9,7 +9,7 @@ export default async function handler( req: NextApiRequest,
 			method: 'GET',
 			url: 'https://qrcodeutils.p.rapidapi.com/qrcodefree',
 			params: {
-				text: "31d85f20bea",
+				text: "31d85f2076msh868a3176f6e17a3p16fc52jsn50bd83437bea",
 				validate: 'true',
 				size: '350',
 				type: 'svg', // type: svg, png etc
@@ -17,7 +17,7 @@ export default async function handler( req: NextApiRequest,
 			},
 			headers: {
 				'x-rapidapi-host': 'qrcodeutils.p.rapidapi.com',
-				'x-rapidapi-key': '31d85f20bea'
+				'x-rapidapi-key': '31d85f2076msh868a3176f6e17a3p16fc52jsn50bd83437bea'
 			}
 		};
 
