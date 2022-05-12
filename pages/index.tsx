@@ -31,7 +31,7 @@ const Home: NextPage = () => {
         <div className="grid grid-cols-2 gap-4">
           <div className="">
             <div className="flex flex-col items-start justify-center w-full h-full pb-20">
-              <div className="relative w-full lg:pl-10">
+              <div className="relative w-full mt-10 lg:pl-10">
                 <div className="flex items-start justify-center rounded-lg w-120 h-120 sm:rounded-xl">
                   <img src="/images/logo-eq-wp.png" />
                 </div>
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
                   reconhecimento facial reduz o risco de fraudes por
                   personificação. Através da comparação de uma selfie e a foto
                   usada no documento, nós confirmamos que seus usuários são quem
-                  realmente eles dizem ser..
+                  realmente eles dizem ser.
                 </p>
 
                 <div className="relative flex flex-col items-center justify-start w-full space-y-5 sm:w-auto lg:space-y-0 lg:space-x-5 lg:flex-row">
