@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 
-io('http://localhost:3003')
+io('http://159.65.235.241:3003')
 
 function App() {
   return (

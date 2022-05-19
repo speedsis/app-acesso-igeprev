@@ -1,15 +1,16 @@
 
 import axios from 'axios';
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next' 
 
 export default async function handler( req: NextApiRequest,
-    res: NextApiResponse) {
+    res: NextApiResponse) {  
+	
 	if (req.method === 'GET') {
 		const options: any = {
 			method: 'GET',
 			url: 'https://qrcodeutils.p.rapidapi.com/qrcodefree',
 			params: {
-				text: "31d85f2076msh868a3176f6e17a3p16fc52jsn50bd83437bea",
+				text: req.query.email,
 				validate: 'true',
 				size: '350',
 				type: 'svg', // type: svg, png etc
