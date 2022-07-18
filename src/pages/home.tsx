@@ -15,6 +15,8 @@ const HomePage: NextPage = () => {
   const { register, handleSubmit } = useForm<FormValues>()
   const [solicitation, setSolicitation] = useState(false)
 
+  const [clickButon, setClickButton] = useState(false)
+
   const socket = useMemo<SocketIOClient.Socket>(
     () => io('http://159.65.235.241:3003'),
     [],
@@ -40,8 +42,10 @@ const HomePage: NextPage = () => {
     })
   }, [socket])
 
-  async function onSubmit(data: FormValues) {
-    const { email, nome, contato } = data
+  async function clickFolhaPgto() {
+    // const { email, nome, contato } = data
+
+    setClickButton(!clickButon)
 
     try {
       //CHAMAR SOLICITACAO
@@ -53,6 +57,10 @@ const HomePage: NextPage = () => {
         status: false,
         time: Date.now().toString().substring(0, 16),
       })
+
+      setTimeout(() => {
+        setClickButton(false)
+      }, 7000)
     } catch (e) {
       console.error(e)
     }
@@ -68,8 +76,8 @@ const HomePage: NextPage = () => {
           </span>
         </div>
         <div className="flex justify-between items-center h-14 bg-blue-800 dark:bg-gray-800 header-right">
-          <div className="bg-white rounded flex items-center w-full max-w-xl mr-4 p-2 shadow-sm border border-gray-200">
-            <button className="outline-none focus:outline-none">
+          <div className=" rounded flex items-center w-full max-w-xl mr-4 p-2 shadow-sm  ">
+            {/* <button className="outline-none focus:outline-none">
               <svg
                 className="w-5 text-gray-600 h-5 cursor-pointer"
                 fill="none"
@@ -78,14 +86,14 @@ const HomePage: NextPage = () => {
               >
                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
-            </button>
-            <input
+            </button> */}
+            {/* <input
               type="search"
               name=""
               id=""
               placeholder="Pesquisa"
               className="w-full pl-3 text-sm text-black outline-none focus:outline-none bg-transparent"
-            />
+            /> */}
           </div>
           <ul className="flex items-center">
             <li>
@@ -144,7 +152,7 @@ const HomePage: NextPage = () => {
                 </span>
               </a>
             </li>
-            <li>
+            {/* <li>
               <a
                 href="#"
                 className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6"
@@ -188,7 +196,7 @@ const HomePage: NextPage = () => {
                   Mensagens
                 </span>
               </a>
-            </li>
+            </li> */}
             <li>
               <a
                 href="#"
@@ -286,8 +294,7 @@ const HomePage: NextPage = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">1,257</p>
-              <p>Visitantes</p>
+              <p className="text-2xl">OFFICE 365</p>
             </div>
           </div>
           <div className="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
@@ -304,8 +311,7 @@ const HomePage: NextPage = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">557</p>
-              <p>Ordens</p>
+              <p className="text-2xl">WORD</p>
             </div>
           </div>
           <div className="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
@@ -322,12 +328,14 @@ const HomePage: NextPage = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">$11,257</p>
-              <p>Pendentes</p>
+              <p className="text-2xl">EXCEL</p>
             </div>
           </div>
           <div className="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
-            <div className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+            <div
+              onClick={() => clickFolhaPgto}
+              className="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12"
+            >
               <svg
                 width="30"
                 height="30"
@@ -340,13 +348,12 @@ const HomePage: NextPage = () => {
               </svg>
             </div>
             <div className="text-right">
-              <p className="text-2xl">$75,257</p>
-              <p>Balanço</p>
+              <p className="text-2xl">FOLHA DE PGTO</p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4">
+        {/* <div className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4">
           <div className="relative flex flex-col min-w-0 mb-4 lg:mb-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
             <div className="rounded-t mb-0 px-0 border-0">
               <div className="flex flex-wrap items-center px-4 py-2">
@@ -1173,10 +1180,16 @@ const HomePage: NextPage = () => {
               </div>
 
               <button
+                disabled={clickButon}
                 type="submit"
-                className="md:w-32 bg-blue-600 dark:bg-gray-100 text-white dark:text-gray-800 font-bold py-3 px-6 rounded-lg mt-4 hover:bg-blue-500 dark:hover:bg-gray-200 transition ease-in-out duration-300"
+                className={`
+                
+                md:w-32 bg-blue-600   text-white first-line:
+                  font-bold py-3 px-6 rounded-lg mt-4 
+                hover:bg-blue-500 dark:hover:bg-gray-200 transition ease-in-out duration-300" first-letter:
+                ${clickButon ? 'bg-blue-300' : 'bg-blue-600'} `}
               >
-                Enviar
+                {clickButon ? 'Aguardando..' : 'Enviar'}
               </button>
             </form>
           </div>
@@ -1308,7 +1321,7 @@ const HomePage: NextPage = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

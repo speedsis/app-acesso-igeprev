@@ -11,6 +11,7 @@ import SVG from 'react-inlinesvg'
 import { v4 as uuidv4 } from 'uuid'
 import io from 'socket.io-client'
 import { useRouter } from 'next/router'
+import { CircularProgressbar } from 'react-circular-progressbar'
 interface IMsg {
   user: string
   msg: string
@@ -24,8 +25,12 @@ const myId = uuidv4()
 const LoginPage: NextPage = () => {
   const router = useRouter()
 
+  const percentage = 66
+
   const [response, setResponse] = useState('')
   const [showMe, setShowMe] = useState(false)
+
+  const [clickButon, setClickButton] = useState(false)
 
   const [autenticated, setAutenticated] = useState(false)
 
@@ -63,6 +68,8 @@ const LoginPage: NextPage = () => {
 
     setShowMe(!showMe)
 
+    setClickButton(!clickButon)
+
     if (!showMe) {
       getQrcode()
       // socket.emit('authenticated', {
@@ -70,10 +77,15 @@ const LoginPage: NextPage = () => {
       //   message: userEmail,
       // })
     }
+
+    setTimeout(() => {
+      setClickButton(false)
+      setShowMe(false)
+    }, 15000)
   }
 
   const getQrcode = async () => {
-    const email = inputRef.current.value
+    const email = 'speedsis@gmail.com' //inputRef.current.value
 
     console.log(`passando email qrcode ${email} `)
 
@@ -159,7 +171,7 @@ const LoginPage: NextPage = () => {
           <p className="text-sm font-normal text-gray-600 mb-7">
             Bem vindo de volta
           </p>
-          <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+          {/* <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 text-gray-400"
@@ -194,20 +206,37 @@ const LoginPage: NextPage = () => {
               id=""
               placeholder="Senha"
             />
-          </div>
+          </div> */}
 
           <button
+            disabled={clickButon}
             type="button"
             onClick={() => gerarQrCode()}
             // onClick={(e) => toggle(e)}
-            className=" w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
+            className={`w-full  mt-4 py-2 rounded-2xl   ${
+              clickButon ? 'bg-indigo-200' : 'bg-indigo-600'
+            }
+            text-white font-semibold mb-2 `}
           >
-            Login
+            {clickButon ? 'Processando..' : 'Login - FaceID'}
           </button>
 
-          <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">
+          <button
+            disabled={clickButon}
+            type="button"
+            onClick={() => gerarQrCode()}
+            // onClick={(e) => toggle(e)}
+            className={`w-full  mt-4 py-2 rounded-2xl   ${
+              clickButon ? 'bg-indigo-200' : 'bg-blue-600'
+            }
+            text-white font-semibold mb-2 `}
+          >
+            {clickButon ? 'Processando..' : 'Login - OPT'}
+          </button>
+
+          {/* <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">
             recuperar senha?
-          </span>
+          </span> */}
 
           <div
             className="px-20 pb-20"
